@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     private Camera theCamera;
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
+    private GunController gunController;
 
 
     // Start is called before the first frame update
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         myRigid = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        gunController = FindObjectOfType<GunController>();
 
         applySpeed = walkSpeed;
         originPosY = theCamera.transform.localPosition.y;
@@ -67,7 +69,7 @@ public class PlayerController : MonoBehaviour
         CameraRotation();
         CharacterRotation();
     }
-
+    // 숙이기
     private void TryCrouch()
     {
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -110,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
         theCamera.transform.localPosition = new Vector3(theCamera.transform.localPosition.x, applyCrouchPosY, theCamera.transform.localPosition.z);
     }
-
+    // 점프
     private void CheckGround() 
     {
         isGround = Physics.Raycast(transform.position, Vector3.down, capsuleCollider.bounds.extents.y + 0.1f);
@@ -128,7 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         myRigid.velocity = transform.up * jumpForce;
     }
-
+    // 달리기
     private void TryRun() 
     {
         if (Input.GetKey(KeyCode.LeftShift))
@@ -143,6 +145,8 @@ public class PlayerController : MonoBehaviour
 
     private void Running()
     {
+        gunController.CancelFineSight();
+
         isRun = true;
         applySpeed = runSpeed;
     }
@@ -152,7 +156,7 @@ public class PlayerController : MonoBehaviour
         isRun = false;
         applySpeed = walkSpeed;
     }
-
+    //이동
     private void Move()
     {
         float _moveDirX = Input.GetAxisRaw("Horizontal");
@@ -163,8 +167,9 @@ public class PlayerController : MonoBehaviour
         Vector3 _velocity = (_moveHorizontal + _moveVertical).normalized * applySpeed;
         myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
 
-    }
 
+    }
+    // 회전
     private void CameraRotation()
     {
         float _xRotation = Input.GetAxisRaw("Mouse Y");
