@@ -1,22 +1,23 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GunController : MonoBehaviour
 {
     //장착된 총
-    [SerializeField]
-    private Gun gun;
+    [field : SerializeField]
+    public Gun gun { get; private set; }
 
     //연사 속도 관련
     private float currentFireRate;
 
+    // 자세에 따른 총의 정확도
+    private float poseAccuracy;
+
     //상태 변수
     private bool isReload = false;
-    private bool isFineSightMode = false;
+    public bool isFineSightMode = false;
 
     //정조준 및 반동 관련 위치 변수
     [SerializeField]
@@ -27,7 +28,9 @@ public class GunController : MonoBehaviour
     //컴포넌트
     private AudioSource audioSource;
     [SerializeField]
-    private Camera theCamera;
+    private Camera camera;
+    private PlayerController playerController;
+    private CrossHair crossHair;
 
     //프리팹
     [SerializeField]
@@ -39,6 +42,8 @@ public class GunController : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        playerController = FindObjectOfType<PlayerController>();
+        crossHair = FindObjectOfType<CrossHair>();
         originPos = transform.localPosition;
         recoilBack = new Vector3(originPos.x + gun.retroActionForce , originPos.y, originPos.z);
         retroActionRecoilBack = new Vector3(gun.fineSightOriginPos.x + gun.retroActionFineSightForce , gun.fineSightOriginPos.y, gun.fineSightOriginPos.z);
@@ -48,9 +53,11 @@ public class GunController : MonoBehaviour
     void Update()
     {
         FireRateCalc();
+        PoseAccuracyCalc();
         TryFire();
         TryReload();
         TryFineSight();
+        ApplyAnimation();
     }
     //발사 관련
     private void FireRateCalc()
@@ -58,6 +65,30 @@ public class GunController : MonoBehaviour
         if (currentFireRate > 0)
         {
             currentFireRate -= Time.deltaTime;
+        }
+    }
+    private void PoseAccuracyCalc()
+    {
+
+        if(playerController.isRun || !playerController.isGround)
+        {
+            poseAccuracy = 30f;
+        }
+        else if (playerController.isWalk)
+        {
+            poseAccuracy = 0.08f;
+        }
+        else if (playerController.isCrouch)
+        {
+            poseAccuracy = 0.02f;
+        }
+        else if (isFineSightMode)
+        {
+            poseAccuracy = 0.0001f;
+        }
+        else // Idle상태
+        {
+            poseAccuracy = 0.04f;
         }
     }
 
@@ -86,6 +117,7 @@ public class GunController : MonoBehaviour
         gun.currentBulletNum--;
         currentFireRate = gun.fireRate;
         PlaySE(gun.fireSound);
+        crossHair.FireAnimation();
         gun.muzzleFlash.Play();
         //총기반동
         StopCoroutine(RetroActionCoroutine());
@@ -95,7 +127,10 @@ public class GunController : MonoBehaviour
 
     private void Hit()
     {
-        if(Physics.Raycast(theCamera.transform.position, theCamera.transform.forward, out hitInfo, gun.range))
+        Vector3 trajectory = camera.transform.forward + new Vector3(Random.Range(-poseAccuracy - gun.accuracy, poseAccuracy + gun.accuracy),
+                                                                    Random.Range(-poseAccuracy - gun.accuracy, poseAccuracy + gun.accuracy),
+                                                                    0);
+        if (Physics.Raycast(camera.transform.position, trajectory, out hitInfo, gun.range))
         {
             var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);
@@ -218,6 +253,11 @@ public class GunController : MonoBehaviour
     {
         audioSource.clip = clip;
         audioSource.Play();
+    }
+
+    private void ApplyAnimation()
+    {
+        crossHair.FineSightAnimation(isFineSightMode);
     }
 
 }
