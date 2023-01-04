@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public string typeName; // 이름
+    public string weaponName; // 이름
     public float range; // 사정거리
     public float accuracy; // 정확도
     public float fireRate; // 연사속도

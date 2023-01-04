@@ -213,7 +213,10 @@ public class PlayerController : MonoBehaviour
     private void ApplyAnimation()
     {
         crossHair.WalkAnimation(isWalk);
+        WeaponManager.currentWeaponAnim.SetBool("Walk", isWalk);
         crossHair.RunAnimation(isRun || !isGround);
+        WeaponManager.currentWeaponAnim.SetBool("Run", isRun);
         crossHair.CrouchAnimation(isCrouch);
+        WeaponManager.currentWeaponAnim.SetBool("Crouch", isCrouch);
     }
 }

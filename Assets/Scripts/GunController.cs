@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class GunController : MonoBehaviour
 {
+    public static bool isActivated = false;
     //장착된 총
     [field : SerializeField]
     public Gun gun { get; private set; }
@@ -52,12 +53,15 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FireRateCalc();
-        PoseAccuracyCalc();
-        TryFire();
-        TryReload();
-        TryFineSight();
-        ApplyAnimation();
+        if (isActivated)
+        {
+            FireRateCalc();
+            PoseAccuracyCalc();
+            TryFire();
+            TryReload();
+            TryFineSight();
+            ApplyAnimation();
+        }
     }
     //발사 관련
     private void FireRateCalc()
@@ -159,7 +163,6 @@ public class GunController : MonoBehaviour
 
             yield return new WaitForSeconds(gun.reloadTime);
 
-
             int _reload = Mathf.Clamp(gun.carryBulletNum, gun.carryBulletNum, gun.maxBulletNum);
             gun.carryBulletNum -= _reload;
             gun.currentBulletNum = _reload;
@@ -168,6 +171,15 @@ public class GunController : MonoBehaviour
         else
         {
             Debug.Log("Bullet is Empty");
+        }
+    }
+
+    public void CancelReload()
+    {
+        if (isReload)
+        {
+            StopCoroutine(ReloadCouroutine());
+            isReload = false;
         }
     }
     // 정조준 관련
@@ -260,4 +272,18 @@ public class GunController : MonoBehaviour
         crossHair.FineSightAnimation(isFineSightMode);
     }
 
+    // 총 교체
+    public void ChangeGun(Gun _gun)
+    {
+        if (WeaponManager.currentWeapon != null)
+        {
+            WeaponManager.currentWeapon.gameObject.SetActive(false);
+        }
+        gun = _gun;
+        WeaponManager.currentWeapon = gun.transform;
+        WeaponManager.currentWeaponAnim = gun.anim;
+
+        gun.transform.localPosition = Vector3.zero;
+        gun.gameObject.SetActive(true);
+    }
 }

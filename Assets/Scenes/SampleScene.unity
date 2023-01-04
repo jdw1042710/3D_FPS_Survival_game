@@ -5757,6 +5757,7 @@ GameObject:
   - component: {fileID: 724368934}
   - component: {fileID: 724368936}
   - component: {fileID: 724368935}
+  - component: {fileID: 724368938}
   - component: {fileID: 724368937}
   m_Layer: 2
   m_Name: Holder
@@ -5806,7 +5807,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724368933}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3776b69772662634b8374d2652838b3a, type: 3}
   m_Name: 
@@ -5908,6 +5909,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &724368938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724368933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bac8d734a7261f41812eca1446d9be4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeWeaponOutDelayTime: 0.1
+  changeWeaponInDelayTime: 0.1
+  guns:
+  - {fileID: 1091343056443074181}
+  hands:
+  - {fileID: 6867017738903532007}
+  gunController: {fileID: 724368935}
+  handController: {fileID: 724368936}
+  currentWeaponType: 0
 --- !u!1 &738191500
 GameObject:
   m_ObjectHideFlags: 0
@@ -6103,7 +6125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &938746325
 Transform:
   m_ObjectHideFlags: 0
@@ -12251,7 +12273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ac3534e09cadb45bda917233055afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeName: SubMachinGun1
+  weaponName: SubMachineGun1
   range: 100
   accuracy: 0
   fireRate: 0.1
@@ -12819,7 +12841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &6294228134796456737
 GameObject:
   m_ObjectHideFlags: 0
@@ -12881,7 +12903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb8752fd26ece9488503ec2377fec1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeName: "\uB9E8\uC190"
+  weaponName: "\uB9E8\uC190"
   range: 3
   damage: 1
   workSpeed: 0
