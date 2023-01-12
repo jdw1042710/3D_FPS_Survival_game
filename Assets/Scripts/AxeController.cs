@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class HandController : MeleeWeaponController
+public class AxeController : MeleeWeaponController
 {
     public static bool isActivated = false;
     void Update()

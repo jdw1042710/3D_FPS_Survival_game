@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hand : MonoBehaviour
+public enum MeleeWeaponType
 {
+    Hand,
+    Axe,
+    Pickaxe,
+}
+
+public class MeleeWeapon : MonoBehaviour
+{
+
     public string weaponName; // 맨손, 너클...
+    public MeleeWeaponType type;
     public float range; // 공격 범위
     public int damage; // 공격력
     public float workSpeed; // 작업 속도

@@ -10,6 +10,7 @@ public class WeaponManager : MonoBehaviour
     {
         Gun,
         Hand,
+        Axe
     }
 
     // 무기 중복 교체 실행 방지 (semaphore)
@@ -25,17 +26,20 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]
     private Gun[] guns;
     [SerializeField]
-    private Hand[] hands;
+    private MeleeWeapon[] meleeWeapons;
 
     // 무기 데이터 인덱스 접근용 딕셔너리
     private Dictionary<string, int> gunIndexDict = new Dictionary<string, int>();
     private Dictionary<string, int> handIndexDict = new Dictionary<string, int>();
+    private Dictionary<string, int> axeIndexDict = new Dictionary<string, int>();
 
     // 필요한 컴포넌트
     [SerializeField]
     private GunController gunController;
     [SerializeField]
     private HandController handController;
+    [SerializeField]
+    private AxeController axeController;
 
     // 현재 무기 타입
     [SerializeField]
@@ -45,15 +49,30 @@ public class WeaponManager : MonoBehaviour
     public static Animator currentWeaponAnim;
 
 
-    void Start()
+    void Awake()
     {
+        gunController = GetComponent<GunController>();
+        handController= GetComponent<HandController>();
+        axeController = GetComponent<AxeController>();
+
+        guns = GetComponentsInChildren<Gun>(true);
+        meleeWeapons = GetComponentsInChildren<MeleeWeapon>(true);
+
         for (int i = 0; i < guns.Length; i++)
         {
             gunIndexDict.Add(guns[i].weaponName, i);
         }
-        for (int i = 0; i < hands.Length; i++)
+        for (int i = 0; i < meleeWeapons.Length; i++)
         {
-            handIndexDict.Add(hands[i].weaponName, i);
+            switch (meleeWeapons[i].type)
+            {
+                case MeleeWeaponType.Hand:
+                    handIndexDict.Add(meleeWeapons[i].weaponName, i);
+                    break;
+                case MeleeWeaponType.Axe:
+                    axeIndexDict.Add(meleeWeapons[i].weaponName, i);
+                    break;
+            }
         }
 
         currentWeapon = gunController.gun.transform;
@@ -73,6 +92,11 @@ public class WeaponManager : MonoBehaviour
             {
                 //무기 교체 (손)
                 StartCoroutine(ChangeWeaponCoroutine(WeaponType.Hand, "맨손"));
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                //무기 교체 (손)
+                StartCoroutine(ChangeWeaponCoroutine(WeaponType.Axe, "Axe"));
             }
         }
     }
@@ -101,6 +125,7 @@ public class WeaponManager : MonoBehaviour
                 gunController.CancelReload();
                 break;
             case WeaponType.Hand:
+            case WeaponType.Axe:
                 break;
         }
     }
@@ -115,8 +140,12 @@ public class WeaponManager : MonoBehaviour
                 GunController.isActivated = true;
                 break;
             case WeaponType.Hand:
-                handController.ChangeHand(hands[handIndexDict[name]]);
+                handController.ChangeMeleeWeapon(meleeWeapons[handIndexDict[name]]);
                 HandController.isActivated = true;
+                break;
+            case WeaponType.Axe:
+                axeController.ChangeMeleeWeapon(meleeWeapons[axeIndexDict[name]]);
+                AxeController.isActivated = true;
                 break;
         }
     }
@@ -125,5 +154,6 @@ public class WeaponManager : MonoBehaviour
     {
         GunController.isActivated = false;
         HandController.isActivated = false;
+        AxeController.isActivated = false;
     }
 }
