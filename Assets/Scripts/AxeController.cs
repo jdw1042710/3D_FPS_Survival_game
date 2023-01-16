@@ -12,4 +12,17 @@ public class AxeController : MeleeWeaponController
             TryAttack();
         }
     }
+
+    protected override void HitAction() 
+    {
+        Rock _rock = hitInfo.transform.GetComponent<Rock>();
+        if (_rock)
+        {
+            _rock.Minning();
+        }
+        else
+        {
+            base.HitAction();
+        }
+    }
 }
