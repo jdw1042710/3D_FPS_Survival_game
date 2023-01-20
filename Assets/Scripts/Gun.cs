@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public string weaponName; // ÀÌ¸§
-    public float range; // »çÁ¤°Å¸®
-    public float accuracy; // Á¤È®µµ
-    public float fireRate; // ¿¬»ç¼Óµµ
-    public float reloadTime; //ÀçÀåÀü ¼Óµµ
+    public string weaponName; // ì´ë¦„
+    public float range; // ì‚¬ì •ê±°ë¦¬
+    public float accuracy; // ì •í™•ë„
+    public float fireRate; // ì—°ì‚¬ì†ë„
+    public float reloadTime; //ì¬ì¥ì „ ì†ë„
 
-    public int damage; // ÃÑÀÇ µ¥¹ÌÁö
-    public int maxBulletNum; // ÃÖ´ë ÀåÅº¼ö
-    public int currentBulletNum; // ÇöÀç ÀåÅº¼ö
+    public int damage; // ì´ì˜ ë°ë¯¸ì§€
+    public int maxBulletNum; // ìµœëŒ€ ì¥íƒ„ìˆ˜
+    public int currentBulletNum; // í˜„ì¬ ì¥íƒ„ìˆ˜
 
-    public int maxCarryBulletNum; // ¼ÒÀ¯ °¡´ÉÇÑ ÃÖ´ë ÃÑ¾Ë ¼ö
-    public int carryBulletNum; // ÇöÀç ¼ÒÀ¯ÇÑ ÃÑ¾Ë ¼ö
+    public int maxCarryBulletNum; // ì†Œìœ  ê°€ëŠ¥í•œ ìµœëŒ€ ì´ì•Œ ìˆ˜
+    public int carryBulletNum; // í˜„ì¬ ì†Œìœ í•œ ì´ì•Œ ìˆ˜
 
-    public float retroActionForce; // ¹İµ¿ ¼¼±â
-    public float retroActionFineSightForce; // Á¤Á¶ÁØ½Ã ¹İµ¿ ¼¼±â
+    public float retroActionForce; // ë°˜ë™ ì„¸ê¸°
+    public float retroActionFineSightForce; // ì •ì¡°ì¤€ì‹œ ë°˜ë™ ì„¸ê¸°
 
-    public Vector3 fineSightOriginPos; // Á¤Á¶ÁØ½Ã À§Ä¡
+    public Vector3 fineSightOriginPos; // ì •ì¡°ì¤€ì‹œ ìœ„ì¹˜
     public Animator anim;
-    public ParticleSystem muzzleFlash; // ÃÑ±¸ ¼¶±¤ È¿°ú
-    public AudioClip fireSound; // ÃÑ¼º È¿°ú
+    public ParticleSystem muzzleFlash; // ì´êµ¬ ì„¬ê´‘ íš¨ê³¼
+    public AudioClip fireSound; // ì´ì„± íš¨ê³¼
 }

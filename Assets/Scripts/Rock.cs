@@ -14,26 +14,22 @@ public class Rock : MonoBehaviour
     private SphereCollider sphereCollider;
 
     [SerializeField]
-    private GameObject rockGeometry;
+    private GameObject go_rock;
     [SerializeField]
-    private GameObject debrisRockGeometry;
+    private GameObject go_debrisRock;
 
     [SerializeField]
-    private AudioSource audioSource;
+    private string strikeSound;
     [SerializeField]
-    private AudioClip hitSoundEffect;
-    [SerializeField]
-    private AudioClip destroySoundEffect;
+    private string destroySound;
 
     private void Awake()
     {
         sphereCollider= GetComponent<SphereCollider>();
-        audioSource = GetComponent<AudioSource>();
     }
     public void Minning()
     {
-        audioSource.clip = hitSoundEffect;
-        audioSource.Play();
+        SoundManager.instance.PlaySE(strikeSound);
         hp--;
         if(hp <= 0)
         {
@@ -43,12 +39,11 @@ public class Rock : MonoBehaviour
 
     private void Crush()
     {
-        audioSource.clip = destroySoundEffect;
-        audioSource.Play();
+        SoundManager.instance.PlaySE(destroySound);
         sphereCollider.enabled= false;
-        Destroy(rockGeometry);
-        debrisRockGeometry.SetActive(true);
+        Destroy(go_rock);
+        go_debrisRock.SetActive(true);
 
-        Destroy(debrisRockGeometry, destroyDelay);
+        Destroy(go_debrisRock, destroyDelay);
     }
 }
