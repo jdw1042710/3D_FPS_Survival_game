@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
     private GunController gunController;
+    private StatusController statusController;
     private CrossHair crossHair;
 
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         myRigid = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         gunController = FindObjectOfType<GunController>();
+        statusController = GetComponent<StatusController>();
         crossHair = FindObjectOfType<CrossHair>();
 
         applySpeed = walkSpeed;
@@ -152,7 +154,7 @@ public class PlayerController : MonoBehaviour
     // ´Þ¸®±â
     private void TryRun() 
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && statusController.TryDecreaseStamina(10))
         {
             Running();
         }
