@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    enum WeaponType
+    public static WeaponManager instance;
+    public enum WeaponType
     {
         Gun,
         Hand,
@@ -47,9 +48,21 @@ public class WeaponManager : MonoBehaviour
     // 현재 무기 (애니메이션) 참조
     public static Transform currentWeapon;
     public static Animator currentWeaponAnim;
-
-
+    
     void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            Init();
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    
+    void Init()
     {
         gunController = GetComponent<GunController>();
         handController= GetComponent<HandController>();
@@ -82,27 +95,36 @@ public class WeaponManager : MonoBehaviour
 
     void Update()
     {
-        if (!isChangeWeapon)
+        TryChangeWeapon();
+    }
+
+    private void TryChangeWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                //무기 교체 (총)
-                StartCoroutine(ChangeWeaponCoroutine(WeaponType.Gun, "SubMachineGun1"));
-            }else if(Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                //무기 교체 (손)
-                StartCoroutine(ChangeWeaponCoroutine(WeaponType.Hand, "맨손"));
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                //무기 교체 (손)
-                StartCoroutine(ChangeWeaponCoroutine(WeaponType.Axe, "Axe"));
-            }
+            //무기 교체 (총)
+            StartCoroutine(ChangeWeaponCoroutine(WeaponType.Gun, "SubMachineGun1"));
+        }else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            //무기 교체 (손)
+            StartCoroutine(ChangeWeaponCoroutine(WeaponType.Hand, "맨손"));
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //무기 교체 (손)
+            StartCoroutine(ChangeWeaponCoroutine(WeaponType.Axe, "Axe"));
+        }
+    }
+    
+    public void TryChangeWeapon(WeaponType _type, string _name)
+    {
+        StartCoroutine(ChangeWeaponCoroutine(_type, _name));
     }
 
     private IEnumerator ChangeWeaponCoroutine(WeaponType _type, string name)
     {
+        if (isChangeWeapon) yield break;
+        
         isChangeWeapon = true;
         currentWeaponAnim.SetTrigger("Weapon_Out");
 
@@ -116,7 +138,7 @@ public class WeaponManager : MonoBehaviour
         currentWeaponType = _type;
         isChangeWeapon = false;
     }
-    private void CancelAllWeaponAction()
+    public void CancelAllWeaponAction()
     {
         switch (currentWeaponType)
         {
@@ -155,5 +177,37 @@ public class WeaponManager : MonoBehaviour
         GunController.isActivated = false;
         HandController.isActivated = false;
         AxeController.isActivated = false;
+    }
+    
+    public void DisableController()
+    {
+        switch (currentWeaponType)
+        {
+            case WeaponType.Gun:
+                GunController.isActivated = false;
+                break;
+            case WeaponType.Hand:
+                HandController.isActivated = false;
+                break;
+            case WeaponType.Axe:
+                AxeController.isActivated = false;
+                break;
+        }
+    }
+    
+    public void EnableController()
+    {
+        switch (currentWeaponType)
+        {
+            case WeaponType.Gun:
+                GunController.isActivated = true;
+                break;
+            case WeaponType.Hand:
+                HandController.isActivated = true;
+                break;
+            case WeaponType.Axe:
+                AxeController.isActivated = true;
+                break;
+        }
     }
 }

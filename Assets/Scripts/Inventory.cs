@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         slots = slotsParent.GetComponentsInChildren<Slot>();
+        InventoryUI.SetActive(false);
     }
 
     private void Update()
@@ -33,19 +34,29 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             activated = !activated;
-            if (activated) OpenInventory();
-            else CloseInventory();
+            if (activated)
+            {
+                OpenInventory();
+            }
+            else
+            {
+                CloseInventory();
+            }
         }
 
     }
 
     private void OpenInventory()
     {
+        PlayerController.isActivated = false;
+        WeaponManager.instance.DisableController();
         InventoryUI.SetActive(true);
     }
 
     private void CloseInventory()
     {
+        PlayerController.isActivated = true;
+        WeaponManager.instance.EnableController();
         InventoryUI.SetActive(false);
     }
 

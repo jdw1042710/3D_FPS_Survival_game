@@ -7,12 +7,6 @@ public class CrossHair : MonoBehaviour
     [SerializeField]
     private Animator anim;
 
-    // 크로스 헤어 비활성화를 위한 부모객체
-    [SerializeField] 
-    private GameObject crossHairHUD;
-    [SerializeField]
-    private GunController gunController;
-
     public void WalkAnimation(bool _flag)
     {
         anim.SetBool("Walk", _flag);

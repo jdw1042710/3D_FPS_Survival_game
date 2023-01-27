@@ -1,11 +1,14 @@
+using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item;
+    public Image itemImage;
     private int _itemCount;
     public int itemCount
     {
@@ -14,19 +17,16 @@ public class Slot : MonoBehaviour
         {
             this._itemCount = value;
             countText.text = _itemCount.ToString();
-            if (_itemCount == 0)
-                Clear();
         }
     }
-    
-    [SerializeField] 
-    private Image itemImage;
+
     [SerializeField]
     private TextMeshProUGUI countText;
     [SerializeField]
     private GameObject go_itemImage;
     [SerializeField]
     private GameObject go_countImage;
+    
 
     //슬롯에 아이템 등록
     public void SetItem(Item _item, int _count = 1)
@@ -52,6 +52,66 @@ public class Slot : MonoBehaviour
         item = null;
         itemCount = 0;
         itemImage.sprite = null;
-        gameObject.SetActive(false);
+        go_itemImage.SetActive(false);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button.Equals(PointerEventData.InputButton.Right))
+        {
+            if (!item) return;
+            switch (item.itemType)
+            {
+                case Item.ItemType.Equipment:
+                    WeaponManager.instance.TryChangeWeapon(WeaponManager.WeaponType.Axe, item.itemName);
+                    break;
+                case Item.ItemType.Ingredient:
+                case Item.ItemType.Used:
+                case Item.ItemType.Etc:
+                    Debug.Log("아이템을 사용하였습니다.");
+                    break;
+            }
+
+            
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (!item) return;
+
+        DragSlot.instance.SetDragSlot(this);
+        DragSlot.instance.transform.position = eventData.position;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (!item) return;
+        DragSlot.instance.transform.position = eventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if(DragSlot.instance.slot)
+            DragSlot.instance.ClearDragSlot();
+    }
+    
+    public void OnDrop(PointerEventData eventData)
+    {
+        if(DragSlot.instance.slot) 
+            ChangeSlot();
+    }
+
+    private void ChangeSlot()
+    {
+        Item _tempItem = item;
+        int _tempItemCount = itemCount;
+        
+        SetItem(DragSlot.instance.slot.item, DragSlot.instance.slot.itemCount);
+
+        if (_tempItem)
+            DragSlot.instance.slot.SetItem(_tempItem, _tempItemCount);
+        else
+            DragSlot.instance.slot.Clear();
     }
 }

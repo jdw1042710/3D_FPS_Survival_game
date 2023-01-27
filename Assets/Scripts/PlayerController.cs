@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static bool isActivated = true;
     // 이동속도 변수
     [SerializeField]
     private float walkSpeed;
@@ -44,19 +45,17 @@ public class PlayerController : MonoBehaviour
     private Camera theCamera;
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
-    private GunController gunController;
     private StatusController statusController;
+    [SerializeField]
     private CrossHair crossHair;
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         myRigid = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        gunController = FindObjectOfType<GunController>();
         statusController = GetComponent<StatusController>();
-        crossHair = FindObjectOfType<CrossHair>();
 
         applySpeed = walkSpeed;
         originPosY = theCamera.transform.localPosition.y;
@@ -66,6 +65,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isActivated) return;
         CheckGround();
         TryJump();
         TryRun();
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
 
     private void Running()
     {
-        gunController.CancelFineSight();
+        WeaponManager.instance.CancelAllWeaponAction();
         CancelCrouch();
         isRun = true;
         applySpeed = runSpeed;
