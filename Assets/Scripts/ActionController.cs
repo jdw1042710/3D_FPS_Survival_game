@@ -12,7 +12,11 @@ public class ActionController : MonoBehaviour
 
     private bool actionAvailable = false; // 상호작용 가능 여부
     private RaycastHit hitInfo;
-    
+
+    [SerializeField]
+    private Camera theCamera;
+    [SerializeField] 
+    private Inventory inventory;
     [SerializeField]
     private LayerMask layerMask;
     [SerializeField] 
@@ -21,6 +25,8 @@ public class ActionController : MonoBehaviour
     private void Awake()
     {
         notificationText.gameObject.SetActive(false);
+        theCamera = GetComponentInChildren<Camera>();
+        inventory = GetComponent<Inventory>();
     }
 
     private void Update()
@@ -39,8 +45,8 @@ public class ActionController : MonoBehaviour
 
     private void CheckItem()
     {
-        actionAvailable = Physics.Raycast(transform.position, transform.forward, out hitInfo, range,layerMask);
-        Debug.DrawRay(transform.position, transform.forward, Color.blue);
+        actionAvailable =
+            Physics.Raycast(transform.position, theCamera.transform.forward, out hitInfo, range, layerMask);
         if (!actionAvailable)
         {
             DisappearItemInfo();
@@ -73,6 +79,7 @@ public class ActionController : MonoBehaviour
         if (_itemController)
         {
             Debug.Log($"{_itemController.item.itemName}을 획득하였습니다.");
+            inventory.AddItem(_itemController.item);
             Destroy(_itemController.gameObject);
         }
     }
