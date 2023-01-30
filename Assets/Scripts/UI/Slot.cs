@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item;
     public Image itemImage;
@@ -27,7 +27,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     private GameObject go_itemImage;
     [SerializeField]
     private GameObject go_countImage;
-    
+
 
     //슬롯에 아이템 등록
     public void SetItem(Item _item, int _count = 1)
@@ -56,6 +56,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         go_itemImage.SetActive(false);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!item) return;
+        ItemManager.instance.ShowItemToolTip(item, transform.position);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!item) return;
+        ItemManager.instance.HideItemToolTip();
+    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button.Equals(PointerEventData.InputButton.Right))

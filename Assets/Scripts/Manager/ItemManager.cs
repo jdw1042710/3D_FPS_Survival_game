@@ -32,6 +32,7 @@ public class ItemManager : MonoBehaviour
 
     [SerializeField]
     private StatusController _statusController;
+    [SerializeField] private SlotToolTip slotToolTip;
 
     void Awake()
     {
@@ -44,6 +45,16 @@ public class ItemManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void ShowItemToolTip(Item _item, Vector3 _position)
+    {
+        slotToolTip.Show(_item, _position);
+    }
+    
+    public void HideItemToolTip()
+    {
+        slotToolTip.Hide();
     }
     
     public void UseItem(Item _item)
