@@ -95,6 +95,18 @@ public class StatusController : MonoBehaviour
         status.hp = Mathf.Max(status.hp, 0);
     }
     
+    public void IncreaseSP(int _amount)
+    {
+        status.sp += _amount;
+        status.sp = Mathf.Min(status.sp, status.MAX_SP);
+    }
+    
+    public void DecreaseSP(int _amount)
+    {
+        status.sp -= _amount;
+        status.sp = Mathf.Max(status.sp, 0);
+    }
+    
     public void IncreaseDP(int _amount)
     {
         status.dp += _amount;
@@ -129,6 +141,18 @@ public class StatusController : MonoBehaviour
     {
         status.thirsty -= _amount;
         status.thirsty = Mathf.Max(status.thirsty, 0);
+    }
+    
+    public void IncreaseSatisfy(int _amount)
+    {
+        status.satisfy += _amount;
+        status.satisfy = Mathf.Min(status.satisfy, status.MAX_SATISFY);
+    }
+    
+    public void DecreaseSatisfy(int _amount)
+    {
+        status.satisfy -= _amount;
+        status.satisfy = Mathf.Max(status.satisfy, 0);
     }
     
     public bool TryDecreaseStamina(int _amount)

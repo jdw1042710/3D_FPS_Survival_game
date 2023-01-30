@@ -16,6 +16,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         set
         {
             this._itemCount = value;
+            if(_itemCount == 0) Clear();
             countText.text = _itemCount.ToString();
         }
     }
@@ -50,7 +51,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public void Clear()
     {
         item = null;
-        itemCount = 0;
+        _itemCount = 0;
         itemImage.sprite = null;
         go_itemImage.SetActive(false);
     }
@@ -60,19 +61,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
         if (eventData.button.Equals(PointerEventData.InputButton.Right))
         {
             if (!item) return;
-            switch (item.itemType)
-            {
-                case Item.ItemType.Equipment:
-                    WeaponManager.instance.TryChangeWeapon(WeaponManager.WeaponType.Axe, item.itemName);
-                    break;
-                case Item.ItemType.Ingredient:
-                case Item.ItemType.Used:
-                case Item.ItemType.Etc:
-                    Debug.Log("아이템을 사용하였습니다.");
-                    break;
-            }
-
-            
+            ItemManager.instance.UseItem(item);
+            if (item.itemType.Equals(Item.ItemType.Used)) itemCount--;
         }
     }
 

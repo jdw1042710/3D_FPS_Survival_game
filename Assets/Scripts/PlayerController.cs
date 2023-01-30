@@ -154,9 +154,17 @@ public class PlayerController : MonoBehaviour
     // ´Þ¸®±â
     private void TryRun() 
     {
-        if (Input.GetKey(KeyCode.LeftShift) && statusController.TryDecreaseStamina(10))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            Running();
+            if (statusController.TryDecreaseStamina(10))
+            {
+                Running();
+            }
+            else
+            {
+                RunningCancel();
+            }
+
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {

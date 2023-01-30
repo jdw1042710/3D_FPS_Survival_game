@@ -46,17 +46,17 @@ public class ActionController : MonoBehaviour
     private void CheckItem()
     {
         actionAvailable =
-            Physics.Raycast(transform.position, theCamera.transform.forward, out hitInfo, range, layerMask);
+            Physics.Raycast(theCamera.transform.position, theCamera.transform.forward, out hitInfo, range, layerMask);
         if (!actionAvailable)
         {
             DisappearItemInfo();
             return;
         };
         
-        ItemController _itemController = hitInfo.transform.GetComponent<ItemController>();
-        if (_itemController)
+        ItemProp _itemProp = hitInfo.transform.GetComponent<ItemProp>();
+        if (_itemProp)
         {
-            AppearItemInfo(_itemController.item.itemName);
+            AppearItemInfo(_itemProp.item.itemName);
         }
 
     }
@@ -75,12 +75,12 @@ public class ActionController : MonoBehaviour
     private void PickUp()
     {
         if (!actionAvailable) return;
-        ItemController _itemController = hitInfo.transform.GetComponent<ItemController>();
-        if (_itemController)
+        ItemProp _itemProp = hitInfo.transform.GetComponent<ItemProp>();
+        if (_itemProp)
         {
-            Debug.Log($"{_itemController.item.itemName}을 획득하였습니다.");
-            inventory.AddItem(_itemController.item);
-            Destroy(_itemController.gameObject);
+            Debug.Log($"{_itemProp.item.itemName}을 획득하였습니다.");
+            inventory.AddItem(_itemProp.item);
+            Destroy(_itemProp.gameObject);
         }
     }
 }
