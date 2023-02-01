@@ -49,7 +49,6 @@ public class SoundManager : MonoBehaviour
 
     private void Init()
     {
-        Debug.Log(effects.Length);
         for (int i = 0; i < effects.Length; i++)
         {
             effectSounds.Add(effects[i].name, effects[i].audioClip);

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MeleeWeaponController : MonoBehaviour
 {
-    // ÇöÀç ÀåÂøµÈ HandÇü Àåºñ
+    // í˜„ì¬ ì¥ì°©ëœ Handí˜• ì¥ë¹„
     [SerializeField]
     protected MeleeWeapon meleeWeapon;
 
-    //»óÅÂ º¯¼ö
+    //ìƒíƒœ ë³€ìˆ˜
     protected bool isAttack = false;
     protected bool isSwing = false;
 
@@ -30,14 +30,14 @@ public class MeleeWeaponController : MonoBehaviour
         isAttack = true;
         meleeWeapon.anim.SetTrigger("Attack");
         yield return new WaitForSeconds(meleeWeapon.attackDelayA);
-        // °ø°İ ÆÇÁ¤ È°¼ºÈ­
+        // ê³µê²© íŒì • í™œì„±í™”
         isSwing= true;
 
-        //°ø°İ ÆÇÁ¤
+        //ê³µê²© íŒì •
         StartCoroutine(HitCoroutine());
 
         yield return new WaitForSeconds(meleeWeapon.attackDelayB);
-        // °ø°İ ÆÇÁ¤ ºñÈ°¼ºÈ­
+        // ê³µê²© íŒì • ë¹„í™œì„±í™”
         isSwing = false;
 
         yield return new WaitForSeconds(meleeWeapon.attackDelay - meleeWeapon.attackDelayA - meleeWeapon.attackDelayB);
@@ -67,7 +67,7 @@ public class MeleeWeaponController : MonoBehaviour
         Debug.Log(hitInfo.transform.name);
     }
 
-    // ¹«±â ±³Ã¼
+    // ë¬´ê¸° êµì²´
     public virtual void ChangeMeleeWeapon(MeleeWeapon _meleeWeapon)
     {
         if (WeaponManager.currentWeapon != null)
