@@ -119,8 +119,6 @@ public class Pig : MonoBehaviour
 
     private void Idle()
     {
-        Debug.Log("Idle");
-        
         currentTime = waitTime;
     }
 
@@ -128,8 +126,7 @@ public class Pig : MonoBehaviour
     {
         int id = Animator.StringToHash("Eat");
         animator.SetTrigger(id);
-        Debug.Log("Eat");
-        
+
         currentTime = waitTime;
     }
 
@@ -137,8 +134,7 @@ public class Pig : MonoBehaviour
     {
         int id = Animator.StringToHash("Peek");
         animator.SetTrigger(id);
-        Debug.Log("Peek");
-        
+
         currentTime = waitTime;
     }
 
@@ -150,11 +146,10 @@ public class Pig : MonoBehaviour
 
         applySpeed = walkSpeed;
         
-        Debug.Log("Walk");
         currentTime = walkTime;
     }
 
-    private void Run(Vector3 _targetPosition)
+    public void Run(Vector3 _targetPosition)
     {
         isRunning = true;
         int id = Animator.StringToHash("Run");
@@ -163,7 +158,6 @@ public class Pig : MonoBehaviour
         applySpeed = runSpeed;
         direction = Quaternion.LookRotation(transform.position - _targetPosition).eulerAngles;
         
-        Debug.Log("Run");
         currentTime = runtime;
         
     }
@@ -174,7 +168,6 @@ public class Pig : MonoBehaviour
         hp -= _damage;
         if (hp <= 0)
         {
-            Debug.Log("돼지 사망");
             Dead();
             return;
         }

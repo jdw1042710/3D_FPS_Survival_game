@@ -7177,6 +7177,9 @@ MonoBehaviour:
   originPos: {x: 0, y: 0, z: 0}
   camera: {fileID: 963194227}
   hitEffectPrefab: {fileID: 3523445017057425370, guid: a2fdf8fe62eae314f82c99f7112dc3d1, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!114 &724368936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7190,6 +7193,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeapon: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!82 &724368937
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7320,6 +7326,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeapon: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!1 &738191500
 GameObject:
   m_ObjectHideFlags: 0
@@ -8174,6 +8183,7 @@ GameObject:
   - component: {fileID: 1311400106}
   - component: {fileID: 1311400105}
   - component: {fileID: 1311400109}
+  - component: {fileID: 1311400110}
   m_Layer: 0
   m_Name: Pig
   m_TagString: NPC
@@ -8356,6 +8366,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1311400110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311400104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be7fdd84d22a8b4d9b89be4a65fa9c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAngle: 130
+  viewDistance: 3
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1319009362
 GameObject:
   m_ObjectHideFlags: 0
@@ -14979,9 +15006,9 @@ GameObject:
   - component: {fileID: 1972657688}
   - component: {fileID: 1972657691}
   - component: {fileID: 1972657690}
-  m_Layer: 2
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

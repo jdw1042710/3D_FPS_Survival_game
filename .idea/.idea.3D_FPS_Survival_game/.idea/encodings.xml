@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/Assets/Scripts/GunController.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/UI/CrossHair.cs" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Weapon/GunController.cs" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/Assets/Scripts/Weapon/MeleeWeapon.cs" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/Assets/Scripts/WeaponManager.cs" charset="x-windows-949" />
   </component>
 </project>

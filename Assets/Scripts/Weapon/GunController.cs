@@ -39,6 +39,7 @@ public class GunController : MonoBehaviour
 
     //충돌 정보
     private RaycastHit hitInfo;
+    [SerializeField] private LayerMask layerMask;
 
     void Start()
     {
@@ -134,7 +135,7 @@ public class GunController : MonoBehaviour
         Vector3 trajectory = camera.transform.forward + new Vector3(Random.Range(-poseAccuracy - gun.accuracy, poseAccuracy + gun.accuracy),
                                                                     Random.Range(-poseAccuracy - gun.accuracy, poseAccuracy + gun.accuracy),
                                                                     0);
-        if (Physics.Raycast(camera.transform.position, trajectory, out hitInfo, gun.range))
+        if (Physics.Raycast(camera.transform.position, trajectory, out hitInfo, gun.range, layerMask))
         {
             var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);

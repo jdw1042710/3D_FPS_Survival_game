@@ -13,6 +13,8 @@ public class MeleeWeaponController : MonoBehaviour
     protected bool isSwing = false;
 
     protected RaycastHit hitInfo;
+    [SerializeField]
+    protected LayerMask layerMask;
 
     protected void TryAttack()
     {
@@ -59,7 +61,7 @@ public class MeleeWeaponController : MonoBehaviour
 
     protected bool CheckHit()
     {
-        return Physics.Raycast(transform.position, transform.forward, out hitInfo, meleeWeapon.range);
+        return Physics.Raycast(transform.position, transform.forward, out hitInfo, meleeWeapon.range, layerMask);
     }
 
     protected virtual void HitAction()

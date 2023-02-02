@@ -43,18 +43,18 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Inventory.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
-     <Compile Include="Assets\Scripts\Gun.cs" />
+     <Compile Include="Assets\Scripts\Weapon\Gun.cs" />
      <Compile Include="Assets\Scripts\UI\SlotToolTip.cs" />
-     <Compile Include="Assets\Scripts\MeleeWeapon.cs" />
+     <Compile Include="Assets\Scripts\Weapon\MeleeWeapon.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
      <Compile Include="Assets\Scripts\UI\Status\Status.cs" />
-     <Compile Include="Assets\Scripts\HandController.cs" />
+     <Compile Include="Assets\Scripts\Weapon\HandController.cs" />
      <Compile Include="Assets\Scripts\UI\Slot.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\Scripts\UI\HUD.cs" />
      <Compile Include="Assets\Scripts\ActionController.cs" />
-     <Compile Include="Assets\Scripts\GunController.cs" />
+     <Compile Include="Assets\Scripts\Weapon\GunController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
@@ -81,9 +81,9 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
      <Compile Include="Assets\Scripts\NPC\Pig.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
-     <Compile Include="Assets\Scripts\MeleeController.cs" />
+     <Compile Include="Assets\Scripts\Weapon\MeleeController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
-     <Compile Include="Assets\Scripts\AxeController.cs" />
+     <Compile Include="Assets\Scripts\Weapon\AxeController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
      <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
@@ -96,9 +96,10 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
-     <Compile Include="Assets\Scripts\Rock.cs" />
+     <Compile Include="Assets\Scripts\Environment\Rock.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\Scripts\Manager\ItemManager.cs" />
+     <Compile Include="Assets\Scripts\NPC\FieldOfViewAngle.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
