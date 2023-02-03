@@ -4,7 +4,7 @@ public abstract class FrendlyAnimal : Animal
 {
     
     
-    public void Damage(int _damage, Vector3 _targetPosition)
+    public override void Damage(int _damage, Vector3 _targetPosition)
     {
         base.Damage(_damage, _targetPosition);
         
@@ -18,9 +18,13 @@ public abstract class FrendlyAnimal : Animal
         int id = Animator.StringToHash("Run");
         animator.SetBool(id, isRunning);
 
-        applySpeed = runSpeed;
-        direction = Quaternion.LookRotation(transform.position - _targetPosition).eulerAngles;
-        
+        navMeshAgent.speed = runSpeed;
+        destination = new Vector3(
+            transform.position.x - _targetPosition.x,
+            0f,
+            transform.position.z - _targetPosition.z
+        ).normalized;
+
         currentTime = runtime;
         
     }

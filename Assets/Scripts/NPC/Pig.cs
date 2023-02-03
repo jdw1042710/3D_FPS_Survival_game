@@ -41,13 +41,15 @@ public class Pig : FrendlyAnimal
     protected override void ResetAll()
     {
         isWalking = false; isRunning = false; isAction = true;
+        navMeshAgent.ResetPath();
+        
         int id;
         id = Animator.StringToHash("Walk");
         animator.SetBool(id, isWalking);
         id = Animator.StringToHash("Run");
         animator.SetBool(id, isRunning);
         
-        direction = new Vector3(0f, Random.Range(0f, 360f), 0f);
+        destination.Set(Random.Range(-movementRange, movementRange) , 0f, Random.Range(-movementRange, movementRange));
     }
     
     protected void NextAction()
