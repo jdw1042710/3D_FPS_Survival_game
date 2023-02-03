@@ -9,11 +9,11 @@ public class FieldOfViewAngle : MonoBehaviour
     [SerializeField] private float viewDistance; // 시야거리
     [SerializeField] private LayerMask targetMask; // ex 플레이어
 
-    private Pig pig;
+    private Animal animal;
 
     private void Awake()
     {
-        pig = GetComponent<Pig>();
+        animal = GetComponent<Animal>();
     }
 
     private void Update()
@@ -43,18 +43,27 @@ public class FieldOfViewAngle : MonoBehaviour
             Transform _targetTransform = _targets[i].transform;
             if (_targetTransform.CompareTag("Player"))
             {
-                Vector3 _direction = (_targetTransform.position - transform.position).normalized;
-                float _angle = Vector3.Angle(_direction, transform.forward);
-                if (_angle > viewAngle * 0.5f) continue;
-                
-                RaycastHit _hit;
-                if (Physics.Raycast(center, _direction, out _hit, viewDistance))
-                {
-                    Debug.DrawRay(center, _direction, Color.blue);
-                    pig.Run(_hit.transform.position);
-                }
-                
+                ReactToPlayer(_targetTransform);
             }
+        }
+    }
+
+    private void ReactToPlayer(Transform _targetTransform)
+    {
+        Vector3 center = transform.position + transform.up;
+        Vector3 _direction = (_targetTransform.position - transform.position).normalized;
+        float _angle = Vector3.Angle(_direction, transform.forward);
+        if (_angle > viewAngle * 0.5f) return;
+        
+        RaycastHit _hit;
+        if (Physics.Raycast(center, _direction, out _hit, viewDistance))
+        {
+            if (animal is FrendlyAnimal fAnimal)
+            {
+                fAnimal = (FrendlyAnimal)animal;
+                fAnimal.Run(_hit.transform.position);
+            }
+            Debug.DrawRay(center, _direction, Color.blue);
         }
     }
 }

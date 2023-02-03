@@ -137,9 +137,19 @@ public class GunController : MonoBehaviour
                                                                     0);
         if (Physics.Raycast(camera.transform.position, trajectory, out hitInfo, gun.range, layerMask))
         {
-            var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
-            Destroy(clone, 2f);
+            HitAction();
         }
+    }
+
+    private void HitAction()
+    {
+        if (hitInfo.transform.CompareTag("NPC"))
+        {
+            hitInfo.transform.GetComponent<Animal>().Damage(gun.damage, transform.position);
+        }
+        
+        var clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+        Destroy(clone, 2f);
     }
     // 재장전 관련
     private void TryReload()

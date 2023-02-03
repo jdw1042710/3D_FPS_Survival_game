@@ -8204,18 +8204,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: "\uB3FC\uC9C0"
-  hp: 4
+  hp: 100
   walkSpeed: 4
   runSpeed: 10
   walkTime: 5
   runtime: 7
   waitTime: 4
-  idlePigSound:
+  idleSound:
   - {fileID: 8300000, guid: 56f120eaafd1f5443a8ba6fbae59523c, type: 3}
   - {fileID: 8300000, guid: 3da640e636a992a4db022039450965bd, type: 3}
   - {fileID: 8300000, guid: a1802282ca4fb2d48ab2ff39614f24f1, type: 3}
-  hurtPigSound: {fileID: 8300000, guid: d1486a7ab2202ba40924c93569cd6eb1, type: 3}
-  deadPigSound: {fileID: 8300000, guid: ba5e9a5036dda8044bb2720b45c0f511, type: 3}
+  hurtSound: {fileID: 8300000, guid: d1486a7ab2202ba40924c93569cd6eb1, type: 3}
+  deadSound: {fileID: 8300000, guid: ba5e9a5036dda8044bb2720b45c0f511, type: 3}
 --- !u!65 &1311400106
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15842,7 +15842,7 @@ MonoBehaviour:
   accuracy: 0
   fireRate: 0.1
   reloadTime: 2
-  damage: 30
+  damage: 1
   maxBulletNum: 30
   currentBulletNum: 30
   maxCarryBulletNum: 3000
